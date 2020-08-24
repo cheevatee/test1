@@ -1,0 +1,26 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+10.200.110.10	helper01.vayu.local
+10.200.110.9	bootstrap01.vayu.local
+10.200.110.11	master01.vayu.local	etcd-0.vayu.local
+10.200.110.12	master02.vayu.local	etcd-1.vayu.local
+10.200.110.13	master03.vayu.local	etcd-2.vayu.local
+10.200.110.14	router01.vayu.local
+10.200.110.15	router02.vayu.local
+10.200.110.16	router03.vayu.local
+10.200.110.17	router04.vayu.local
+10.200.110.18	router05.vayu.local
+10.200.110.19	router06.vayu.local
+10.200.110.20	monitor01.vayu.local
+10.200.110.21	monitor02.vayu.local
+10.200.110.22	monitor03.vayu.local
+10.200.110.23	logging01.vayu.local
+10.200.110.24	logging02.vayu.local
+10.200.110.25	logging03.vayu.local
+10.200.110.26	worker01.vayu.local
+10.200.110.27	worker02.vayu.local
+10.200.110.28	worker03.vayu.local
+10.200.110.29	worker04.vayu.local
+10.200.110.100	api.vayu.local
+10.200.110.101	api-int.vayu.local
