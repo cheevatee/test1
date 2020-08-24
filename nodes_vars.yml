@@ -1,0 +1,201 @@
+---
+interface_name: ens192
+netmask: 255.255.255.0
+prefix: 24
+gateway: 10.200.110.1
+dns1: 10.200.110.10
+dns2: 10.200.110.1
+domain: "{{ CLUSTERID }}.{{ DOMAIN }}"
+httpd_server: 10.200.110.10:8080
+
+install_dev: vda
+image_url: "http://{{ httpd_server }}/rhcos-{{ openshift_minor_version }}-{{ architecture }}-metal.raw.gz"
+ignition_url: "http://{{ httpd_server }}/{{ item.update_ignite_file }}"
+
+# Single DNS server
+add_boot_entry: "ip={{ item.node_ip }}::{{ gateway }}:{{ netmask }}:{{ item.node_name }}:{{ interface_name }}:none nameserver={{ dns1 }} coreos.inst.install_dev={{ install_dev }} coreos.inst.image_url={{ image_url }} coreos.inst.ignition_url={{ ignition_url }}"
+
+# Multiple DNS server
+#add_boot_entry: "ip={{ item.node_ip }}::{{ gateway }}:{{ netmask }}:{{ item.node_name }}:{{ interface_name }}:none nameserver={{ dns1 }} nameserver={{ dns2 }} coreos.inst.install_dev={{ install_dev }} coreos.inst.image_url={{ image_url }} coreos.inst.ignition_url={{ ignition_url }}"
+
+nodes:
+  - node_name: "bootstrap01.{{ DOMAIN }}"
+    node_name_short: bootstrap01
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.9
+    original_ignite_file: bootstrap.ign
+    update_ignite_file: bootstrap01.ign
+    base64_ignite_file: append-bootstrap.64
+  - node_name: "master01.{{ DOMAIN }}"
+    node_name_short: master01
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.11
+    original_ignite_file: master.ign
+    update_ignite_file: master01.ign
+    base64_ignite_file: master01.64
+  - node_name: "master02.{{ DOMAIN }}"
+    node_name_short: master02
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.12
+    original_ignite_file: master.ign
+    update_ignite_file: master02.ign
+    base64_ignite_file: master02.64
+  - node_name: "master03.{{ DOMAIN }}"
+    node_name_short: master03
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.13
+    original_ignite_file: master.ign
+    update_ignite_file: master03.ign
+    base64_ignite_file: master03.64
+  - node_name: "router01.{{ DOMAIN }}"
+    node_name_short: router01
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.14
+    original_ignite_file: worker.ign
+    update_ignite_file: router01.ign
+    base64_ignite_file: router01.64
+  - node_name: "router02.{{ DOMAIN }}"
+    node_name_short: router02
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.15
+    original_ignite_file: worker.ign
+    update_ignite_file: router02.ign
+    base64_ignite_file: router02.64
+  - node_name: "router03.{{ DOMAIN }}"
+    node_name_short: router03
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.16
+    original_ignite_file: worker.ign
+    update_ignite_file: router03.ign
+    base64_ignite_file: router03.64
+  - node_name: "router04.{{ DOMAIN }}"
+    node_name_short: router04
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.17
+    original_ignite_file: worker.ign
+    update_ignite_file: router04.ign
+    base64_ignite_file: router04.64
+  - node_name: "router05.{{ DOMAIN }}"
+    node_name_short: router05
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.18
+    original_ignite_file: worker.ign
+    update_ignite_file: router05.ign
+    base64_ignite_file: router05.64
+  - node_name: "router06.{{ DOMAIN }}"
+    node_name_short: router06
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.19
+    original_ignite_file: worker.ign
+    update_ignite_file: router06.ign
+    base64_ignite_file: router06.64
+  - node_name: "monitor01.{{ DOMAIN }}"
+    node_name_short: monitor01
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.20
+    original_ignite_file: worker.ign
+    update_ignite_file: monitor01.ign
+    base64_ignite_file: monitor01.64
+  - node_name: "monitor02.{{ DOMAIN }}"
+    node_name_short: monitor02
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.21
+    original_ignite_file: worker.ign
+    update_ignite_file: monitor02.ign
+    base64_ignite_file: monitor02.64
+  - node_name: "monitor03.{{ DOMAIN }}"
+    node_name_short: monitor03
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.22
+    original_ignite_file: worker.ign
+    update_ignite_file: monitor03.ign
+    base64_ignite_file: monitor03.64
+  - node_name: "logging01.{{ DOMAIN }}"
+    node_name_short: logging01
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.23
+    original_ignite_file: worker.ign
+    update_ignite_file: logging01.ign
+    base64_ignite_file: logging01.64
+  - node_name: "logging02.{{ DOMAIN }}"
+    node_name_short: logging02
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.24
+    original_ignite_file: worker.ign
+    update_ignite_file: logging02.ign
+    base64_ignite_file: logging02.64
+  - node_name: "logging03.{{ DOMAIN }}"
+    node_name_short: logging03
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_ip: 10.200.110.25
+    original_ignite_file: worker.ign
+    update_ignite_file: logging03.ign
+    base64_ignite_file: logging03.64
+  - node_name: "worker01.{{ DOMAIN }}"
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_name_short: worker01
+    node_ip: 10.200.110.26
+    original_ignite_file: worker.ign
+    update_ignite_file: worker01.ign
+    base64_ignite_file: worker01.64
+  - node_name: "worker02.{{ DOMAIN }}"
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_name_short: worker02
+    node_ip: 10.200.110.27
+    original_ignite_file: worker.ign
+    update_ignite_file: worker02.ign
+    base64_ignite_file: worker02.64
+  - node_name: "worker03.{{ DOMAIN }}"
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_name_short: worker03
+    node_ip: 10.200.110.28
+    original_ignite_file: worker.ign
+    update_ignite_file: worker03.ign
+    base64_ignite_file: worker03.64
+  - node_name: "worker04.{{ DOMAIN }}"
+    cpus: 4
+    rams: 8192
+    disk: 120
+    node_name_short: worker04
+    node_ip: 10.200.110.29
+    original_ignite_file: worker.ign
+    update_ignite_file: worker04.ign
+    base64_ignite_file: worker04.64
