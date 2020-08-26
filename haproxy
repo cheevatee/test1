@@ -17,10 +17,10 @@ frontend openshift-api-server
 backend openshift-api-server
     balance source
     mode tcp
-    server bootstrap 192.168.5.60:6443 check
-    server master01 192.168.5.61:6443 check
-    server master02 192.168.5.62:6443 check
-    server master03 192.168.5.63:6443 check
+    server bootstrap01 10.200.110.9:6443 check
+    server master01 10.200.110.11:6443 check
+    server master02 10.200.110.12:6443 check
+    server master03 10.200.110.13:6443 check
 
 frontend machine-config-server
     bind *:22623
@@ -31,10 +31,10 @@ frontend machine-config-server
 backend machine-config-server
     balance source
     mode tcp
-    server bootstrap 192.168.5.60:22623 check
-    server master01 192.168.5.61:22623 check
-    server master02 192.168.5.62:22623 check
-    server master03 192.168.5.63:22623 check
+    server bootstrap01 10.200.110.9:22623 check
+    server master01 10.200.110.11:22623 check
+    server master02 10.200.110.12:22623 check
+    server master03 10.200.110.13:22623 check
 
 frontend ingress-http
     bind *:80
@@ -45,8 +45,8 @@ frontend ingress-http
 backend ingress-http
     balance source
     mode tcp
-    server worker01 192.168.5.64:80 check
-    server worker02 192.168.5.65:80 check
+    server worker01 10.200.110.26:80 check
+    server worker02 10.200.110.27:80 check
 
 frontend ingress-https
     bind *:443
@@ -57,7 +57,7 @@ frontend ingress-https
 backend ingress-https
     balance source
     mode tcp
-    server worker01 192.168.5.64:443 check
-    server worker02 192.168.5.65:443 check
+    server worker01 10.200.110.26:443 check
+    server worker02 10.200.110.27:443 check
 
 #---------------------------------------------------------------------
