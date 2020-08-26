@@ -1,2 +1,4 @@
 wget https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/latest/latest/rhcos-4.5.6-x86_64-openstack.x86_64.qcow2.gz
 wget https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/latest/latest/rhcos-4.5.6-x86_64-installer.x86_64.iso
+wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.5.7/openshift-client-linux-4.5.7.tar.gz
+wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.5.7/openshift-install-linux-4.5.7.tar.gz
