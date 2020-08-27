@@ -257,7 +257,101 @@ oc create -f local-volume-elasticsearch.yml
 oc create -f local-volume-alertmanager.yml
 oc create -f local-volume-prometheus.yml
 
+##################################################
+8. Deploy monitoring stack
+##################################################
 
+vi monitoring_stack.yml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-monitoring-config
+  namespace: openshift-monitoring
+data:
+  config.yaml: |
+    prometheusOperator:
+      nodeSelector:
+        node-role.kubernetes.io/infra-monitoring: ""
+      tolerations:
+      - key: infra-monitoring
+        value: reserved
+        effect: NoSchedule
+    prometheusK8s:
+      retention: 15d
+      nodeSelector:
+        node-role.kubernetes.io/infra-monitoring: ""
+      tolerations:
+      - key: infra-monitoring
+        value: reserved
+        effect: NoSchedule
+      volumeClaimTemplate:
+        metadata:
+          name: local-pvc-prometheus
+        spec:
+          storageClassName: local-sc-prometheus
+          resources:
+            requests:
+              storage: 200Gi
+    alertmanagerMain:
+      nodeSelector:
+        node-role.kubernetes.io/infra-monitoring: ""
+      tolerations:
+      - key: infra-monitoring
+        value: reserved
+        effect: NoSchedule
+      volumeClaimTemplate:
+        metadata:
+          name: local-pvc-alertmanager
+        spec:
+          storageClassName: local-sc-alertmanager
+          resources:
+            requests:
+              storage: 5Gi
+    kubeStateMetrics:
+      nodeSelector:
+        node-role.kubernetes.io/infra-monitoring: ""
+      tolerations:
+      - key: infra-monitoring
+        value: reserved
+        effect: NoSchedule
+    grafana:
+      nodeSelector:
+        node-role.kubernetes.io/infra-monitoring: ""
+      tolerations:
+      - key: infra-monitoring
+        value: reserved
+        effect: NoSchedule
+    telemeterClient:
+      nodeSelector:
+        node-role.kubernetes.io/infra-monitoring: ""
+      tolerations:
+      - key: infra-monitoring
+        value: reserved
+        effect: NoSchedule
+    k8sPrometheusAdapter:
+      nodeSelector:
+        node-role.kubernetes.io/infra-monitoring: ""
+      tolerations:
+      - key: infra-monitoring
+        value: reserved
+        effect: NoSchedule
+    openshiftStateMetrics:
+      nodeSelector:
+        node-role.kubernetes.io/infra-monitoring: ""
+      tolerations:
+      - key: infra-monitoring
+        value: reserved
+        effect: NoSchedule
+    thanosQuerier:
+      nodeSelector:
+        node-role.kubernetes.io/infra-monitoring: ""
+      tolerations:
+      - key: infra-monitoring
+        value: reserved
+        effect: NoSchedule
+
+oc apply -f monitoring_stack.yml
 
 
 
