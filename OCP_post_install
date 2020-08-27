@@ -539,3 +539,9 @@ spec:
 
 oc apply -f htpasswd_provider.yaml
 
+oc adm policy add-cluster-role-to-user cluster-admin ocpadmin
+oc adm policy add-cluster-role-to-user cluster-monitoring-view ocpmonitor
+oc adm policy add-cluster-role-to-user cluster-admin operation01
+oc adm policy add-cluster-role-to-user cluster-admin operation02
+oc adm policy add-cluster-role-to-user cluster-admin operation03
+
