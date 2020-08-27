@@ -1,6 +1,6 @@
 1. Update NTP and timezone
 
-for i in `oc get nodes | grep bay | awk '{print $1}'`; do ssh core@$i "sudo timedatectl set-timezone Asia/Bangkok"; done 
+for i in `oc get nodes | grep -iv name | awk '{print $1}'`; do ssh core@$i "sudo timedatectl set-timezone Asia/Bangkok"; done 
 cat /etc/chrony.conf | python3 -c "import sys, urllib.parse; print(urllib.parse.quote(''.join(sys.stdin.readlines())))"
 
 vi 50-master-chrony
