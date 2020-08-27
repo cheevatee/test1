@@ -575,10 +575,178 @@ spec:
 oc get openshiftapiserver -o=jsonpath='{range .items[0].status.conditions[?(@.type=="Encrypted")]}{.reason}{"\n"}{.message}{"\n"}'
 oc get kubeapiserver -o=jsonpath='{range .items[0].status.conditions[?(@.type=="Encrypted")]}{.reason}{"\n"}{.message}{"\n"}'
 
+##################################################
+13. Installing Red Hat OpenShift Service Mesh
+##################################################
 
+13.1 Installing the Elasticsearch Operator
 
+Procedure
 
+    - Log in to the OpenShift Container Platform web console.
+    - Navigate to Operators → OperatorHub.
+    - Type Elasticsearch into the filter box to locate the Elasticsearch Operator.
+    - Click the Elasticsearch Operator to display information about the Operator.
+    - Click Install.
+    - On the Create Operator Subscription page, select All namespaces on the cluster (default). This installs the Operator in the default openshift-operators project and makes the Operator available to all projects in the cluster.
+    - In the Update Channel, select the most current version.
+    - Select the Automatic Approval Strategy.
+    	
+    The Manual approval strategy requires a user with appropriate credentials to approve the Operator install and subscription process.
+    
+    - Click Subscribe.
+    - The Installed Operators page displays the Elasticsearch Operator’s installation progress.
 
+13.2 Installing the Jaeger Operator
+
+Procedure
+
+    - Log in to the OpenShift Container Platform web console.
+    - Navigate to Operators → OperatorHub.
+    - Type Jaeger into the filter box to locate the Jaeger Operator.
+    - Click the Jaeger Operator provided by Red Hat to display information about the Operator.
+    - Click Install.
+    - On the Create Operator Subscription page, select All namespaces on the cluster (default). This installs the Operator in the default openshift-operators project and makes the Operator available to all projects in the cluster.
+    - Select the stable Update Channel.
+    - Select the Automatic Approval Strategy.
+    	
+    The Manual approval strategy requires a user with appropriate credentials to approve the Operator install and subscription process.
+
+    - Click Subscribe.
+    - The Installed Operators page displays the Jaeger Operator’s installation progress.
+
+13.2 Installing the Kiali Operator
+
+Procedure
+
+    - Log in to the OpenShift Container Platform web console.
+    - Navigate to Operators → OperatorHub.
+    - Type Kiali into the filter box to find the Kiali Operator.
+    - Click the Kiali Operator provided by Red Hat to display information about the Operator.
+    - Click Install.
+    - On the Create Operator Subscription page, select All namespaces on the cluster (default). This installs the Operator in the default openshift-operators project and makes the Operator available to all projects in the cluster.
+    - Select the stable Update Channel.
+    - Select the Automatic Approval Strategy.
+    	
+    The Manual approval strategy requires a user with appropriate credentials to approve the Operator install and subscription process.
+    
+    - Click Subscribe.
+    - The Installed Operators page displays the Kiali Operator’s installation progress.
+
+13.3 Installing the Red Hat OpenShift Service Mesh Operator
+
+Procedure
+
+    - Log in to the OpenShift Container Platform web console.
+    - Navigate to Operators → OperatorHub.
+    - Type Red Hat OpenShift Service Mesh into the filter box to find the Red Hat OpenShift Service Mesh Operator.
+    - Click the Red Hat OpenShift Service Mesh Operator to display information about the Operator.
+    - On the Create Operator Subscription page, select All namespaces on the cluster (default). This installs the Operator in the default openshift-operators project and makes the Operator available to all projects in the cluster.
+    - Click Install.
+    - Select the stable Update Channel.
+    - Select the Automatic Approval Strategy.
+    	
+    The Manual approval strategy requires a user with appropriate credentials to approve the Operator install and subscription process.
+
+    - Click Subscribe.
+    - The Installed Operators page displays the Red Hat OpenShift Service Mesh Operator’s installation progress.
+
+13.4 Deploying the Red Hat OpenShift Service Mesh control plane
+
+oc login https://{HOSTNAME}:6443
+oc new-project istio-system
+
+vi istio-installation.yaml
+
+apiVersion: maistra.io/v1
+kind: ServiceMeshControlPlane
+metadata:
+  name: basic-install
+spec:
+
+  istio:
+    global:
+      proxy:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 128Mi
+
+    gateways:
+      istio-egressgateway:
+        autoscaleEnabled: false
+      istio-ingressgateway:
+        autoscaleEnabled: false
+        ior_enabled: false
+
+    mixer:
+      policy:
+        autoscaleEnabled: false
+
+      telemetry:
+        autoscaleEnabled: false
+        resources:
+          requests:
+            cpu: 100m
+            memory: 1G
+          limits:
+            cpu: 500m
+            memory: 4G
+
+    pilot:
+      autoscaleEnabled: false
+      traceSampling: 100
+
+    kiali:
+      enabled: true
+
+    grafana:
+      enabled: true
+
+    tracing:
+      enabled: true
+      jaeger:
+        template: all-in-one
+
+oc create -n istio-system -f istio-installation.yaml
+oc get smcp -n istio-system
+oc get pods -n istio-system -w
+
+Example:
+
+NAME                                     READY   STATUS             RESTARTS   AGE
+grafana-7bf5764d9d-2b2f6                 2/2     Running            0          28h
+istio-citadel-576b9c5bbd-z84z4           1/1     Running            0          28h
+istio-egressgateway-5476bc4656-r4zdv     1/1     Running            0          28h
+istio-galley-7d57b47bb7-lqdxv            1/1     Running            0          28h
+istio-ingressgateway-dbb8f7f46-ct6n5     1/1     Running            0          28h
+istio-pilot-546bf69578-ccg5x             2/2     Running            0          28h
+istio-policy-77fd498655-7pvjw            2/2     Running            0          28h
+istio-sidecar-injector-df45bd899-ctxdt   1/1     Running            0          28h
+istio-telemetry-66f697d6d5-cj28l         2/2     Running            0          28h
+jaeger-896945cbc-7lqrr                   2/2     Running            0          11h
+kiali-78d9c5b87c-snjzh                   1/1     Running            0          22h
+prometheus-6dff867c97-gr2n5              2/2     Running            0          28h
+
+13.5 Creating the Red Hat OpenShift Service Mesh member roll
+
+vi servicemeshmemberroll-default.yaml
+
+apiVersion: maistra.io/v1
+kind: ServiceMeshMemberRoll
+metadata:
+  name: default
+  namespace: istio-system
+spec:
+  members:
+    # a list of projects joined into the service mesh
+    - <your-project-name>
+    - <another-project-name>
+
+oc create -n istio-system -f servicemeshmemberroll-default.yaml
 
 ##################################################
 X. Disabling etcd encryption
