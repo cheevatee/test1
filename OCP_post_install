@@ -508,7 +508,7 @@ oc create -f clo-instance.yaml
 
 
 ##################################################
-X. Configuring an HTPasswd identity provider
+10. Configuring an HTPasswd identity provider
 ##################################################
 
 htpasswd -c -B -b users.htpasswd ocpadmin P@ssw0rd
@@ -544,4 +544,23 @@ oc adm policy add-cluster-role-to-user cluster-monitoring-view ocpmonitor
 oc adm policy add-cluster-role-to-user cluster-admin operation01
 oc adm policy add-cluster-role-to-user cluster-admin operation02
 oc adm policy add-cluster-role-to-user cluster-admin operation03
+
+##################################################
+11. Disable self provision
+##################################################
+
+oc describe clusterrolebinding.rbac self-provisioners
+oc patch clusterrolebinding.rbac self-provisioners -p '{"subjects": null}'
+oc edit clusterrolebinding.rbac self-provisioners
+
+apiVersion: authorization.openshift.io/v1
+kind: ClusterRoleBinding
+metadata:
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "false"
+  ...
+  
+oc describe clusterrolebinding.rbac self-provisioners
+
+
 
