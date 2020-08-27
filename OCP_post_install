@@ -1,7 +1,49 @@
 1. Update NTP and timezone
 
 for i in `oc get nodes | grep bay | awk '{print $1}'`; do ssh core@$i "sudo timedatectl set-timezone Asia/Bangkok"; done 
+cat /etc/chrony.conf | python3 -c "import sys, urllib.parse; print(urllib.parse.quote(''.join(sys.stdin.readlines())))"
 
+vi 50-master-chrony
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: 50-master-chrony
+spec:
+  config:
+    ignition:
+      version: 2.2.0
+    storage:
+      files:
+      - contents:
+          source: data:,%23%20Use%20public%23%20Enable%20kernel%20synchronization%20
+        filesystem: root
+        mode: 0644
+        path: /etc/chrony.conf
+
+vi 50-worker-chrony
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 50-master-chrony
+spec:
+  config:
+    ignition:
+      version: 2.2.0
+    storage:
+      files:
+      - contents:
+          source: data:,%23%20Use%20public%20servers%20from%20the%20pool.ntp.org%20
+        filesystem: root
+        mode: 0644
+        path: /etc/chrony.conf
+
+oc create -f 50-master-chrony
+oc create -f 50-worker-chrony
+watch oc get mcp
 
 2.Create node label
 
