@@ -1,0 +1,11 @@
+1. Update NTP and timezone
+
+for i in `oc get nodes | grep bay | awk '{print $1}'`; do ssh core@$i "sudo timedatectl set-timezone Asia/Bangkok"; done 
+
+
+2.Create node label
+
+oc label node <node> node-role.kubernetes.io/infra-router=""
+oc label node <node> node-role.kubernetes.io/infra-monitoring=""
+
+oc label node <node> node-role.kubernetes.io/worker-
