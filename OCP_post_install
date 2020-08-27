@@ -1,4 +1,6 @@
+##################################################
 1. Update NTP and timezone
+##################################################
 
 for i in `oc get nodes | grep -iv name | awk '{print $1}'`; do ssh core@$i "sudo timedatectl set-timezone Asia/Bangkok"; done 
 for i in `oc get nodes | grep -iv name | awk '{print $1}'`; do echo $i; ssh core@$i "sudo timedatectl"; done 
@@ -48,15 +50,20 @@ oc create -f 50-worker-chrony
 watch oc get mcp
 for i in `oc get nodes | grep -iv name | awk '{print $1}'`; do echo $i; ssh core@$i "sudo chronyc sources"; done 
 
+##################################################
 2.Create node label
+##################################################
 
 oc label node <node> node-role.kubernetes.io/infra-router=""
 oc label node <node> node-role.kubernetes.io/infra-monitoring=""
 
 oc label node <node> node-role.kubernetes.io/worker-
 
+oc get nodes --show-labels
 
+##################################################
 3. Create infra machineconfigpool
+##################################################
 
 cat <<EOF | oc apply -f -
 apiVersion: machineconfiguration.openshift.io/v1
@@ -92,4 +99,13 @@ spec:
 EOF
 
 oc get mcp
+
+##################################################
+4. taint node and torelation
+##################################################
+
+
+
+oc adm taint node d2d-ocp4infra-a01.dmp.true.th d2d-ocp4infra-a02.dmp.true.th infra-router=reserved:NoSchedule
+oc adm taint node d2d-ocp4logmon-a01.dmp.true.th d2d-ocp4logmon-a02.dmp.true.th d2d-ocp4logmon-a03.dmp.true.th infra-monitoring=reserved:NoSchedule
 
