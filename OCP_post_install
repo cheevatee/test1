@@ -596,6 +596,8 @@ Procedure
     
     - Click Subscribe.
     - The Installed Operators page displays the Elasticsearch Operator’s installation progress.
+    
+oc get csv --all-namespaces|grep -i elasticsearch
 
 13.2 Installing the Jaeger Operator
 
@@ -614,6 +616,8 @@ Procedure
 
     - Click Subscribe.
     - The Installed Operators page displays the Jaeger Operator’s installation progress.
+ 
+oc get csv --all-namespaces|grep -i jaeger
 
 13.2 Installing the Kiali Operator
 
@@ -633,6 +637,8 @@ Procedure
     - Click Subscribe.
     - The Installed Operators page displays the Kiali Operator’s installation progress.
 
+oc get csv --all-namespaces|grep -i kiali
+
 13.3 Installing the Red Hat OpenShift Service Mesh Operator
 
 Procedure
@@ -650,6 +656,8 @@ Procedure
 
     - Click Subscribe.
     - The Installed Operators page displays the Red Hat OpenShift Service Mesh Operator’s installation progress.
+
+oc get csv --all-namespaces|grep -i mesh
 
 13.4 Deploying the Red Hat OpenShift Service Mesh control plane
 
