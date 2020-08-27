@@ -108,6 +108,9 @@ oc edit configs.imageregistry.operator.openshift.io
 
 managementState: Removed -> Managed
 
+  storage:
+    emptyDir: {}
+
 ##################################################
 5. taint node and torelation
 ##################################################
