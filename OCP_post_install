@@ -130,7 +130,7 @@ watch "oc -n openshift-ingress get pod -o wide"
 move image-registry pod
 
 oc -n openshift-image-registry patch configs.imageregistry.operator.openshift.io cluster --type=merge --patch='{"spec":{"nodeSelector": {"node-role.kubernetes.io/infra-monitoring":""},"tolerations": [{"effect":"NoSchedule","key": "infra-monitoring","value": "reserved"}]}}'
-watch oc -n openshift-image-registry get pod -o wide | grep '^image-registry-'
+watch "oc -n openshift-image-registry get pod -o wide | grep '^image-registry-'"
 
 ##################################################
 7. Installing the Local Storage Operator
