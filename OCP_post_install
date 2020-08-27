@@ -46,6 +46,7 @@ spec:
 oc create -f 50-master-chrony
 oc create -f 50-worker-chrony
 watch oc get mcp
+for i in `oc get nodes | grep -iv name | awk '{print $1}'`; do echo $i; ssh core@$i "sudo chronyc sources"; done 
 
 2.Create node label
 
