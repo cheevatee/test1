@@ -119,7 +119,21 @@ oc adm taint node <Infra Node1> <Infra Node1> infra-router=reserved:NoSchedule
 oc adm taint node <Monitoring Node1> <Monitoring Node2> <Monitoring Node3> infra-monitoring=reserved:NoSchedule
 
 ##################################################
-6. Installing the Local Storage Operator
+6. Move OCP Services to Infra and Monitoring nodes
+##################################################
+
+move router pods
+
+oc patch ingresscontroller/default --type=merge -n openshift-ingress-operator -p '{"spec": {"nodePlacement":{"nodeSelector":{"matchLabels":{"node-role.kubernetes.io/infra-router": ""}},"tolerations": [{"effect":"NoSchedule","key": "infra-router","value": "reserved"}]}}}'
+watch "oc -n openshift-ingress get pod -o wide"
+
+move image-registry pod
+
+oc -n openshift-image-registry patch configs.imageregistry.operator.openshift.io cluster --type=merge --patch='{"spec":{"nodeSelector": {"node-role.kubernetes.io/infra-monitoring":""},"tolerations": [{"effect":"NoSchedule","key": "infra-monitoring","value": "reserved"}]}}'
+watch oc -n openshift-image-registry get pod -o wide | grep '^image-registry-'
+
+##################################################
+7. Installing the Local Storage Operator
 ##################################################
 
 To install the Local Storage Operator from the web console, follow these steps:
@@ -243,20 +257,6 @@ oc create -f local-volume-elasticsearch.yml
 oc create -f local-volume-alertmanager.yml
 oc create -f local-volume-prometheus.yml
 
-
-##################################################
-X. Move OCP Services to Infra and Monitoring nodes
-##################################################
-
-move router pods
-
-oc patch ingresscontroller/default --type=merge -n openshift-ingress-operator -p '{"spec": {"nodePlacement":{"nodeSelector":{"matchLabels":{"node-role.kubernetes.io/infra-router": ""}},"tolerations": [{"effect":"NoSchedule","key": "infra-router","value": "reserved"}]}}}'
-watch "oc -n openshift-ingress get pod -o wide"
-
-move image-registry pod
-
-oc -n openshift-image-registry patch configs.imageregistry.operator.openshift.io cluster --type=merge --patch='{"spec":{"nodeSelector": {"node-role.kubernetes.io/infra-monitoring":""},"tolerations": [{"effect":"NoSchedule","key": "infra-monitoring","value": "reserved"}]}}'
-watch oc -n openshift-image-registry get pod -o wide | grep '^image-registry-'
 
 
 
