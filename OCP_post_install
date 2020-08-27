@@ -504,7 +504,7 @@ spec:
           key: infra-router
           value: reserved
 
-
+oc create -f clo-instance.yaml
 
 
 
