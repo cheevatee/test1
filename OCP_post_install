@@ -112,14 +112,139 @@ managementState: Removed -> Managed
     emptyDir: {}
 
 ##################################################
-5. taint node and torelation
+5. Installing the Local Storage Operator
+##################################################
+
+To install the Local Storage Operator from the web console, follow these steps:
+
+    - Log in to the OpenShift Container Platform web console.
+    - Navigate to Operators → OperatorHub.
+    - Type Local Storage into the filter box to locate the Local Storage Operator.
+    - Click Install.
+    - On the Create Operator Subscription page, select A specific namespace on the cluster. Select local-storage from the drop-down menu.
+    - Adjust the values for Update Channel and Approval Strategy to the values that you want.
+    - Click Subscribe.
+
+Once finished, the Local Storage Operator will be listed in the Installed Operators section of the web console.
+
+oc new-project local-storage
+
+oc patch ds local-storage-local-diskmaker -n local-storage -p '{"spec": {"template": {"spec": {"tolerations":[{"operator": "Exists"}]}}}}'
+oc patch ds local-storage-local-provisioner -n local-storage -p '{"spec": {"template": {"spec": {"tolerations":[{"operator": "Exists"}]}}}}'
+
+oc get csvs -n local-storage
+
+On Monitoring node1
+
+vgcreate monitoring_vg /dev/sdb
+lvcreate -n elasticsearch1_lv -L 300G monitoring_vg
+lvcreate -n prometheus1_lv -L 200G monitoring_vg
+lvcreate -n alertmanager1_lv -L 5G monitoring_vg
+
+On Monitoring node2
+
+vgcreate monitoring_vg /dev/sdb
+lvcreate -n elasticsearch1_lv -L 300G monitoring_vg
+lvcreate -n prometheus1_lv -L 200G monitoring_vg
+lvcreate -n alertmanager1_lv -L 5G monitoring_vg
+
+On Monitoring node3
+
+vgcreate monitoring_vg /dev/sdb
+lvcreate -n elasticsearch1_lv -L 300G monitoring_vg
+lvcreate -n alertmanager1_lv -L 5G monitoring_vg
+
+
+vi local-volume-elasticsearch.yml
+
+apiVersion: "local.storage.openshift.io/v1"
+kind: "LocalVolume"
+metadata:
+  name: "local-storage-elasticsearch"
+  namespace: "local-storage"
+spec:
+  nodeSelector:
+    nodeSelectorTerms:
+    - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - <Strorage Node1>
+          - <Strorage Node2>
+          - <Strorage Node3>
+  tolerations:
+  - operator: Exists
+  storageClassDevices:
+    - storageClassName: "local-sc-elasticsearch"
+      volumeMode: Filesystem
+      fsType: xfs
+      devicePaths:
+        - /dev/monitoring_vg/elasticsearch1_lv
+
+vi local-volume-alertmanager.yml
+
+apiVersion: "local.storage.openshift.io/v1"
+kind: "LocalVolume"
+metadata:
+  name: "local-storage-alertmanager"
+  namespace: "local-storage" 
+spec:
+  nodeSelector: 
+    nodeSelectorTerms:
+    - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - <Strorage Node1>
+          - <Strorage Node2>
+          - <Strorage Node3>
+  tolerations:
+  - operator: Exists
+  storageClassDevices:
+    - storageClassName: "local-sc-alertmanager"
+      volumeMode: Filesystem
+      fsType: xfs
+      devicePaths: 
+        - /dev/monitoring_vg/alertmanager1_lv
+
+vi local-volume-prometheus.yml
+
+apiVersion: "local.storage.openshift.io/v1"
+kind: "LocalVolume"
+metadata:
+  name: "local-storage-prometheus"
+  namespace: "local-storage" 
+spec:
+  nodeSelector: 
+    nodeSelectorTerms:
+    - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - <Strorage Node1>
+          - <Strorage Node2>
+  tolerations:
+  - operator: Exists
+  storageClassDevices:
+    - storageClassName: "local-sc-prometheus"
+      volumeMode: Filesystem
+      fsType: xfs
+      devicePaths: 
+        - /dev/monitoring_vg/prometheus1_lv
+
+oc create -f local-volume-elasticsearch.yml
+oc create -f local-volume-alertmanager.yml
+oc create -f local-volume-prometheus.yml
+
+##################################################
+X. taint node and torelation
 ##################################################
 
 oc adm taint node d2d-ocp4infra-a01.dmp.true.th d2d-ocp4infra-a02.dmp.true.th infra-router=reserved:NoSchedule
 oc adm taint node d2d-ocp4logmon-a01.dmp.true.th d2d-ocp4logmon-a02.dmp.true.th d2d-ocp4logmon-a03.dmp.true.th infra-monitoring=reserved:NoSchedule
 
 ##################################################
-6. Move OCP Services to Infra and Monitoring nodes
+X. Move OCP Services to Infra and Monitoring nodes
 ##################################################
 
 move router pods
