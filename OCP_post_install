@@ -507,6 +507,35 @@ spec:
 oc create -f clo-instance.yaml
 
 
+##################################################
+X. Configuring an HTPasswd identity provider
+##################################################
 
+htpasswd -c -B -b users.htpasswd ocpadmin P@ssw0rd
+htpasswd -B -b users.htpasswd ocpmonitor P@ssw0rd
+htpasswd -B -b users.htpasswd operation01 P@ssw0rd
+htpasswd -B -b users.htpasswd operation02 P@ssw0rd
+htpasswd -B -b users.htpasswd operation03 P@ssw0rd
+htpasswd -B -b users.htpasswd developer01 P@ssw0rd
+htpasswd -B -b users.htpasswd developer02 P@ssw0rd
+htpasswd -B -b users.htpasswd developer03 P@ssw0rd
 
+oc create secret generic htpasswd-secret --from-file=htpasswd=</path/to/users.htpasswd> -n openshift-config
+
+vi htpasswd_provider.yaml
+
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+spec:
+  identityProviders:
+  - name: htpasswd
+    mappingMethod: claim 
+    type: HTPasswd
+    htpasswd:
+      fileData:
+        name: htpasswd-secret
+
+oc apply -f htpasswd_provider.yaml
 
