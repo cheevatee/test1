@@ -51,3 +51,41 @@ oc label node <node> node-role.kubernetes.io/infra-router=""
 oc label node <node> node-role.kubernetes.io/infra-monitoring=""
 
 oc label node <node> node-role.kubernetes.io/worker-
+
+
+3. Create infra machineconfigpool
+
+
+cat <<EOF | oc apply -f -
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfigPool
+metadata: 
+  name: infra
+spec:
+  machineConfigSelector:
+    matchExpressions:
+      - {key: machineconfiguration.openshift.io/role, operator: In, values: [worker,infra-router]}
+  maxUnavailable: null
+  nodeSelector:
+    matchLabels:
+      node-role.kubernetes.io/infra-router: ""
+  paused: false
+EOF
+
+
+cat <<EOF | oc apply -f -
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfigPool
+metadata: 
+  name: monitoring
+spec:
+  machineConfigSelector:
+    matchExpressions:
+      - {key: machineconfiguration.openshift.io/role, operator: In, values: [worker,monitoring]}
+  maxUnavailable: null
+  nodeSelector:
+    matchLabels:
+      node-role.kubernetes.io/infra-monitoring: ""
+  paused: false
+EOF
+
