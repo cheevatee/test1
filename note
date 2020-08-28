@@ -2,3 +2,147 @@ wget https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/latest/lat
 wget https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/latest/latest/rhcos-4.5.6-x86_64-installer.x86_64.iso
 wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.5.7/openshift-client-linux-4.5.7.tar.gz
 wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.5.7/openshift-install-linux-4.5.7.tar.gz
+
+
+I0828 09:10:34.456218       1 shared_informer.go:230] Caches are synced for client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file 
+I0828 09:10:34.456379       1 shared_informer.go:230] Caches are synced for client-ca::kube-system::extension-apiserver-authentication::client-ca-file 
+I0828 09:10:34.457594       1 tlsconfig.go:178] loaded client CA [0/"client-ca::kube-system::extension-apiserver-authentication::client-ca-file,client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file"]: "openshift-kube-apiserver-operator_aggregator-client-signer@1598480644" [] issuer="<self>" (2020-08-26 22:24:04 +0000 UTC to 2020-09-25 22:24:05 +0000 UTC (now=2020-08-28 09:10:34.457533137 +0000 UTC))
+I0828 09:10:34.457940       1 leaderelection.go:242] attempting to acquire leader lease  openshift-kube-scheduler/kube-scheduler...
+I0828 09:10:34.458553       1 tlsconfig.go:200] loaded serving cert ["serving-cert::/etc/kubernetes/static-pod-resources/secrets/serving-cert/tls.crt::/etc/kubernetes/static-pod-resources/secrets/serving-cert/tls.key"]: "scheduler.openshift-kube-scheduler.svc" [serving] validServingFor=[scheduler.openshift-kube-scheduler.svc,scheduler.openshift-kube-scheduler.svc.cluster.local] issuer="openshift-service-serving-signer@1598429363" (2020-08-26 08:09:45 +0000 UTC to 2022-08-26 08:09:46 +0000 UTC (now=2020-08-28 09:10:34.458511808 +0000 UTC))
+I0828 09:10:34.459232       1 named_certificates.go:53] loaded SNI cert [0/"self-signed loopback"]: "apiserver-loopback-client@1598605834" [serving] validServingFor=[apiserver-loopback-client] issuer="apiserver-loopback-client-ca@1598605834" (2020-08-28 08:10:33 +0000 UTC to 2021-08-28 08:10:33 +0000 UTC (now=2020-08-28 09:10:34.459195612 +0000 UTC))
+I0828 09:10:34.460546       1 tlsconfig.go:178] loaded client CA [0/"client-ca::kube-system::extension-apiserver-authentication::client-ca-file,client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file"]: "admin-kubeconfig-signer" [] issuer="<self>" (2020-08-26 03:11:36 +0000 UTC to 2030-08-24 03:11:36 +0000 UTC (now=2020-08-28 09:10:34.460514859 +0000 UTC))
+I0828 09:10:34.460618       1 tlsconfig.go:178] loaded client CA [1/"client-ca::kube-system::extension-apiserver-authentication::client-ca-file,client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file"]: "kube-control-plane-signer" [] issuer="<self>" (2020-08-26 03:11:41 +0000 UTC to 2021-08-26 03:11:41 +0000 UTC (now=2020-08-28 09:10:34.460599642 +0000 UTC))
+I0828 09:10:34.460664       1 tlsconfig.go:178] loaded client CA [2/"client-ca::kube-system::extension-apiserver-authentication::client-ca-file,client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file"]: "kube-apiserver-to-kubelet-signer" [] issuer="<self>" (2020-08-26 03:11:41 +0000 UTC to 2021-08-26 03:11:41 +0000 UTC (now=2020-08-28 09:10:34.460646857 +0000 UTC))
+I0828 09:10:34.460706       1 tlsconfig.go:178] loaded client CA [3/"client-ca::kube-system::extension-apiserver-authentication::client-ca-file,client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file"]: "kubelet-bootstrap-kubeconfig-signer" [] issuer="<self>" (2020-08-26 03:11:38 +0000 UTC to 2030-08-24 03:11:38 +0000 UTC (now=2020-08-28 09:10:34.460689828 +0000 UTC))
+I0828 09:10:34.460754       1 tlsconfig.go:178] loaded client CA [4/"client-ca::kube-system::extension-apiserver-authentication::client-ca-file,client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file"]: "openshift-kube-controller-manager-operator_csr-signer-signer@1598480627" [] issuer="<self>" (2020-08-26 22:23:46 +0000 UTC to 2020-10-25 22:23:47 +0000 UTC (now=2020-08-28 09:10:34.460736022 +0000 UTC))
+I0828 09:10:34.460798       1 tlsconfig.go:178] loaded client CA [5/"client-ca::kube-system::extension-apiserver-authentication::client-ca-file,client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file"]: "openshift-kube-controller-manager-operator_csr-signer-signer@1598480622" [] issuer="<self>" (2020-08-26 22:23:41 +0000 UTC to 2020-10-25 22:23:42 +0000 UTC (now=2020-08-28 09:10:34.460781094 +0000 UTC))
+I0828 09:10:34.460843       1 tlsconfig.go:178] loaded client CA [6/"client-ca::kube-system::extension-apiserver-authentication::client-ca-file,client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file"]: "kube-csr-signer_@1598484191" [] issuer="openshift-kube-controller-manager-operator_csr-signer-signer@1598480627" (2020-08-26 23:23:10 +0000 UTC to 2020-09-25 23:23:11 +0000 UTC (now=2020-08-28 09:10:34.460822919 +0000 UTC))
+I0828 09:10:34.460889       1 tlsconfig.go:178] loaded client CA [7/"client-ca::kube-system::extension-apiserver-authentication::client-ca-file,client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file"]: "openshift-kube-apiserver-operator_aggregator-client-signer@1598480644" [] issuer="<self>" (2020-08-26 22:24:04 +0000 UTC to 2020-09-25 22:24:05 +0000 UTC (now=2020-08-28 09:10:34.460870201 +0000 UTC))
+I0828 09:10:34.461422       1 tlsconfig.go:200] loaded serving cert ["serving-cert::/etc/kubernetes/static-pod-resources/secrets/serving-cert/tls.crt::/etc/kubernetes/static-pod-resources/secrets/serving-cert/tls.key"]: "scheduler.openshift-kube-scheduler.svc" [serving] validServingFor=[scheduler.openshift-kube-scheduler.svc,scheduler.openshift-kube-scheduler.svc.cluster.local] issuer="openshift-service-serving-signer@1598429363" (2020-08-26 08:09:45 +0000 UTC to 2022-08-26 08:09:46 +0000 UTC (now=2020-08-28 09:10:34.461402417 +0000 UTC))
+I0828 09:10:34.461981       1 named_certificates.go:53] loaded SNI cert [0/"self-signed loopback"]: "apiserver-loopback-client@1598605834" [serving] validServingFor=[apiserver-loopback-client] issuer="apiserver-loopback-client-ca@1598605834" (2020-08-28 08:10:33 +0000 UTC to 2021-08-28 08:10:33 +0000 UTC (now=2020-08-28 09:10:34.461958617 +0000 UTC))
+E0828 09:11:59.544625       1 leaderelection.go:320] error retrieving resource lock openshift-kube-scheduler/kube-scheduler: etcdserver: request timed out
+E0828 09:12:30.271944       1 leaderelection.go:320] error retrieving resource lock openshift-kube-scheduler/kube-scheduler: etcdserver: request timed out
+E0828 09:13:57.245584       1 leaderelection.go:320] error retrieving resource lock openshift-kube-scheduler/kube-scheduler: etcdserver: request timed out
+I0828 09:14:02.869441       1 leaderelection.go:252] successfully acquired lease openshift-kube-scheduler/kube-scheduler
+I0828 09:14:38.487327       1 scheduler.go:731] pod local-storage/local-storage-alertmanager-local-provisioner-xrs7w is bound successfully on node "monitor01.vayu.local", 12 nodes evaluated, 1 nodes were found feasible.
+I0828 09:14:38.513415       1 scheduler.go:731] pod local-storage/local-storage-alertmanager-local-diskmaker-4ds9m is bound successfully on node "monitor01.vayu.local", 12 nodes evaluated, 1 nodes were found feasible.
+I0828 09:14:38.547114       1 scheduler.go:731] pod local-storage/local-storage-alertmanager-local-provisioner-zqmgb is bound successfully on node "monitor02.vayu.local", 12 nodes evaluated, 1 nodes were found feasible.
+I0828 09:14:38.577314       1 scheduler.go:731] pod local-storage/local-storage-alertmanager-local-provisioner-6prx9 is bound successfully on node "monitor03.vayu.local", 12 nodes evaluated, 1 nodes were found feasible.
+I0828 09:14:38.626036       1 scheduler.go:731] pod local-storage/local-storage-alertmanager-local-diskmaker-2tmlq is bound successfully on node "monitor02.vayu.local", 12 nodes evaluated, 1 nodes were found feasible.
+I0828 09:14:38.645435       1 scheduler.go:731] pod local-storage/local-storage-alertmanager-local-diskmaker-7852x is bound successfully on node "monitor03.vayu.local", 12 nodes evaluated, 1 nodes were found feasible.
+I0828 09:15:03.520996       1 scheduler.go:731] pod openshift-logging/elasticsearch-delete-app-1598606100-jjfpw is bound successfully on node "monitor03.vayu.local", 12 nodes evaluated, 3 nodes were found feasible.
+I0828 09:15:03.577996       1 scheduler.go:731] pod openshift-logging/elasticsearch-delete-audit-1598606100-jlbd9 is bound successfully on node "monitor03.vayu.local", 12 nodes evaluated, 3 nodes were found feasible.
+I0828 09:15:03.692951       1 scheduler.go:731] pod openshift-logging/elasticsearch-delete-infra-1598606100-9m4b5 is bound successfully on node "monitor03.vayu.local", 12 nodes evaluated, 3 nodes were found feasible.
+I0828 09:15:03.804308       1 scheduler.go:731] pod openshift-logging/elasticsearch-rollover-app-1598606100-rjb5l is bound successfully on node "monitor03.vayu.local", 12 nodes evaluated, 3 nodes were found feasible.
+I0828 09:15:03.923494       1 scheduler.go:731] pod openshift-logging/elasticsearch-rollover-audit-1598606100-xtscn is bound successfully on node "monitor03.vayu.local", 12 nodes evaluated, 3 nodes were found feasible.
+I0828 09:15:04.023706       1 scheduler.go:731] pod openshift-logging/elasticsearch-rollover-infra-1598606100-dld8b is bound successfully on node "monitor03.vayu.local", 12 nodes evaluated, 3 nodes were found feasible.
+E0828 09:15:53.903784       1 leaderelection.go:320] error retrieving resource lock openshift-kube-scheduler/kube-scheduler: etcdserver: leader changed
+I0828 09:16:15.683507       1 scheduler.go:731] pod openshift-authentication/oauth-openshift-58d8f986b-pwrt7 is bound successfully on node "master01.vayu.local", 12 nodes evaluated, 3 nodes were found feasible.
+E0828 09:16:35.937075       1 leaderelection.go:320] error retrieving resource lock openshift-kube-scheduler/kube-scheduler: etcdserver: request timed out
+I0828 09:16:37.208711       1 leaderelection.go:277] failed to renew lease openshift-kube-scheduler/kube-scheduler: timed out waiting for the condition
+F0828 09:16:37.208800       1 server.go:244] leaderelection lost
+
+
+
+
+
+
+
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-image-registry-openstack error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-machine-api-vsphere error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-machine-api-azure error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-network error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-image-registry error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-ingress-gcp error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-machine-api-aws error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-machine-api-gcp error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-ingress-azure error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-machine-api-ovirt error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=cloud-credential-operator-iam-ro error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-image-registry-gcs error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-image-registry-azure error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-ingress error="unsupported platorm type: None"
+time="2020-08-28T09:28:51Z" level=debug msg="0 cred requests" controller=credreq_status
+time="2020-08-28T09:28:51Z" level=debug msg="set ClusterOperator condition" controller=credreq_status message="No credentials requests reporting errors." reason=NoCredentialsFailing status=False type=Degraded
+time="2020-08-28T09:28:51Z" level=debug msg="set ClusterOperator condition" controller=credreq_status message="0 of 0 credentials requests provisioned and reconciled." reason=ReconcilingComplete status=False type=Progressing
+time="2020-08-28T09:28:51Z" level=debug msg="set ClusterOperator condition" controller=credreq_status message= reason= status=True type=Available
+time="2020-08-28T09:28:51Z" level=debug msg="set ClusterOperator condition" controller=credreq_status message= reason= status=True type=Upgradeable
+time="2020-08-28T09:28:58Z" level=error msg="failed to sync operator status" controller=credreq cr=openshift-cloud-credential-operator/openshift-ingress-azure error="failed to update clusteroperator cloud-credential: etcdserver: request timed out" secret=openshift-ingress-operator/cloud-credentials
+time="2020-08-28T09:28:58Z" level=info msg="calculating metrics for all CredentialsRequests" controller=metrics
+time="2020-08-28T09:28:58Z" level=info msg="reconcile complete" controller=metrics elapsed=3.899979ms
+E0828 09:29:01.190503       1 leaderelection.go:331] error retrieving resource lock openshift-cloud-credential-operator/cloud-credential-operator-leader: etcdserver: request timed out
+I0828 09:29:01.930612       1 leaderelection.go:288] failed to renew lease openshift-cloud-credential-operator/cloud-credential-operator-leader: timed out waiting for the condition
+time="2020-08-28T09:29:01Z" level=fatal msg="unable to run the manager" error="leader election lost
+
+
+
+
+
+
+Error from server: etcdserver: leader changed
+
+
+
+
+
+
+
+ 21602  Aug 28 16:43:29 master03.vayu.local hyperkube[1606]: I0828 16:43:29.775310    1606 http.go:128] Probe succeeded for https://169.128.0.10:8443/healthz, Response: {200 OK 200 HTTP/2.0 2 0 map[Content-Length:[2] Content-Type:[text/plain; charset=utf-8] Date:[Fri, 28 Aug 2020 09:43:29 GMT] X-Content-Type-Options:[nosniff]] 0xc003ba4200 2 [] false false map[] 0xc001662b00 0xc005140a50}
+ 21603  Aug 28 16:43:29 master03.vayu.local hyperkube[1606]: I0828 16:43:29.775410    1606 prober.go:133] Readiness probe for "openshift-config-operator-8d7f5cd76-8zfdw_openshift-config-operator(322be267-daae-49e2-ad9c-97f0399fa9cb):openshift-config-operator" succeeded
+ 21604  Aug 28 16:43:29 master03.vayu.local hyperkube[1606]: I0828 16:43:29.793816    1606 request.go:907] Got a Retry-After 1s response for attempt 6 to https://api-int.ocp4.vayu.local:6443/api/v1/namespaces/openshift-multus/secrets?fieldSelector=metadata.name%3Dmultus-token-56js7&resourceVersion=2240368
+ 21605  Aug 28 16:43:29 master03.vayu.local hyperkube[1606]: I0828 16:43:29.804413    1606 reflector.go:211] Listing and watching *v1.ConfigMap from object-"openshift-apiserver"/"image-import-ca"
+ 21606  Aug 28 16:43:29 master03.vayu.local hyperkube[1606]: I0828 16:43:29.804894    1606 request.go:907] Got a Retry-After 1s response for attempt 1 to https://api-int.ocp4.vayu.local:6443/api/v1/namespaces/openshift-apiserver/configmaps?fieldSelector=metadata.name%3Dimage-import-ca&resourceVersion=2269430
+ 21607  Aug 28 16:43:29 master03.vayu.local hyperkube[1606]: I0828 16:43:29.934873    1606 request.go:907] Got a Retry-After 1s response for attempt 9 to https://api-int.ocp4.vayu.local:6443/api/v1/namespaces/openshift-monitoring/secrets?fieldSelector=metadata.name%3Dnode-exporter-tls&resourceVersion=2240368
+ 21608  Aug 28 16:43:30 master03.vayu.local hyperkube[1606]: I0828 16:43:30.005618    1606 prober.go:181] HTTP-Probe Host: https://10.200.110.13, Port: 6443, Path: healthz
+ 21609  Aug 28 16:43:30 master03.vayu.local hyperkube[1606]: I0828 16:43:30.005716    1606 prober.go:184] HTTP-Probe Headers: map[]
+ 21610  Aug 28 16:43:30 master03.vayu.local hyperkube[1606]: I0828 16:43:30.021758    1606 http.go:128] Probe succeeded for https://10.200.110.13:6443/healthz, Response: {200 OK 200 HTTP/2.0 2 0 map[Cache-Control:[no-cache, private] Content-Length:[2] Content-Type:[text/plain; charset=utf-8] Date:[Fri, 28 Aug 2020 09:43:30 GMT] X-Content-Type-Options:[nosniff] X-Kubernetes-Pf-Flowschema-Uid:[7b8a1c5b-f3e8-417d-8b84-a34058c17bdf] X-Kubernetes-Pf-Prioritylevel-Uid:[fc5f4fd7-7f06-4ce6-b377-7d3f28a09c1f]] 0xc004228ca0 2 [] false false map[] 0xc004a45c00 0xc001bba160}
+ 21611  Aug 28 16:43:30 master03.vayu.local hyperkube[1606]: I0828 16:43:30.021934    1606 prober.go:133] Readiness probe for "kube-apiserver-master03.vayu.local_openshift-kube-apiserver(e34f7ec231a41d2736b536ba76f11d7c):kube-apiserver" succeeded
+ 21612  Aug 28 16:43:30 master03.vayu.local hyperkube[1606]: I0828 16:43:30.075429    1606 request.go:907] Got a Retry-After 1s response for attempt 6 to https://api-int.ocp4.vayu.local:6443/api/v1/namespaces/openshift-operator-lifecycle-manager/secrets?fieldSelector=metadata.name%3Dolm-operator-serviceaccount-token-pt9vc&resourceVersion=2240368
+ 21613  Aug 28 16:43:30 master03.vayu.local hyperkube[1606]: I0828 16:43:30.129314    1606 request.go:907] Got a Retry-After 1s response for attempt 5 to https://api-int.ocp4.vayu.local:6443/api/v1/namespaces/openshift-apiserver/secrets?fieldSelector=metadata.name%3Dencryption-config-2&resourceVersion=2240368
+ 21614  Aug 28 16:43:30 master03.vayu.local hyperkube[1606]: I0828 16:43:30.149483    1606 request.go:907] Got a Retry-After 1s response for attempt 9 to https://api-int.ocp4.vayu.local:6443/api/v1/namespaces/openshift-service-ca/secrets?fieldSelector=metadata.name%3Dservice-ca-dockercfg-9nzht&resourceVersion=2240368
+
+
+
+
+
+
+I0828 10:19:23.346129       1 garbagecollector.go:447] object [machineconfiguration.openshift.io/v1/MachineConfigPool, namespace: , name: infra, uid: be0fd133-1aa8-41dd-a516-423104312e4d]'s doesn't have an owner, continue on next item
+E0828 10:21:03.647540       1 clusterroleaggregation_controller.go:181] global-operators-view failed with : Operation cannot be fulfilled on clusterroles.rbac.authorization.k8s.io "global-operators-view": the object has been modified; please apply your changes to the latest version and try again
+E0828 10:21:24.341895       1 leaderelection.go:320] error retrieving resource lock kube-system/kube-controller-manager: Get https://localhost:6443/api/v1/namespaces/kube-system/configmaps/kube-controller-manager?timeout=10s: context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+I0828 10:21:24.342033       1 leaderelection.go:277] failed to renew lease kube-system/kube-controller-manager: timed out waiting for the condition
+I0828 10:21:24.342201       1 event.go:278] Event(v1.ObjectReference{Kind:"ConfigMap", Namespace:"", Name:"", UID:"", APIVersion:"v1", ResourceVersion:"", FieldPath:""}): type: 'Normal' reason: 'LeaderElection' master02.vayu.local_c6f54372-6d73-4667-8045-99df0eae1253 stopped leading
+I0828 10:21:24.342295       1 pv_controller_base.go:311] Shutting down persistent volume controller
+I0828 10:21:24.342365       1 pv_controller_base.go:505] claim worker queue shutting down
+F0828 10:21:24.342367       1 controllermanager.go:291] leaderelection lost
+
+
+
+
+
+
+The API server has an abnormal latency of 9.199999999999996 seconds for GET persistentvolumeclaims.
+
+
+
+
+
+[root@helper01 post_install]# oc get route --all-namespaces
+NAMESPACE                  NAME                   HOST/PORT                                                     PATH   SERVICES               PORT       TERMINATION            WILDCARD
+hello-openshift            hello-openshift        hello-openshift-hello-openshift.apps.ocp4.vayu.local                 hello-openshift        8080-tcp                          None
+istio-system               grafana                grafana-istio-system.apps.ocp4.vayu.local                            grafana                <all>      reencrypt              None
+istio-system               istio-ingressgateway   istio-ingressgateway-istio-system.apps.ocp4.vayu.local               istio-ingressgateway   8080                              None
+istio-system               jaeger                 jaeger-istio-system.apps.ocp4.vayu.local                             jaeger-query           <all>      reencrypt              None
+istio-system               kiali                  kiali-istio-system.apps.ocp4.vayu.local                              kiali                  <all>      reencrypt/Redirect     None
+istio-system               prometheus             prometheus-istio-system.apps.ocp4.vayu.local                         prometheus             <all>      reencrypt              None
+openshift-authentication   oauth-openshift        oauth-openshift.apps.ocp4.vayu.local                                 oauth-openshift        6443       passthrough/Redirect   None
+openshift-console          console                console-openshift-console.apps.ocp4.vayu.local                       console                https      reencrypt/Redirect     None
+openshift-console          downloads              downloads-openshift-console.apps.ocp4.vayu.local                     downloads              http       edge/Redirect          None
+openshift-logging          kibana                 kibana-openshift-logging.apps.ocp4.vayu.local                        kibana                 <all>      reencrypt/Redirect     None
+openshift-monitoring       alertmanager-main      alertmanager-main-openshift-monitoring.apps.ocp4.vayu.local          alertmanager-main      web        reencrypt/Redirect     None
+openshift-monitoring       grafana                grafana-openshift-monitoring.apps.ocp4.vayu.local                    grafana                https      reencrypt/Redirect     None
+openshift-monitoring       prometheus-k8s         prometheus-k8s-openshift-monitoring.apps.ocp4.vayu.local             prometheus-k8s         web        reencrypt/Redirect     None
+openshift-monitoring       thanos-querier         thanos-querier-openshift-monitoring.apps.ocp4.vayu.local             thanos-querier         web        reencrypt/Redirect     None
+[root@helper01 post_install]#
+
+
+
