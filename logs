@@ -31,3 +31,38 @@ I0901 13:19:51.515540       1 secure_serving.go:178] Serving securely on [::]:10
 I0901 13:19:51.515583       1 leaderelection.go:242] attempting to acquire leader lease  kube-system/kube-controller-manager...
 I0901 13:19:51.515651       1 tlsconfig.go:240] Starting DynamicServingCertificateController
 E0901 13:25:16.052550       1 leaderelection.go:320] error retrieving resource lock kube-system/kube-controller-manager: etcdserver: request timed out
+
+
+
+
+
+
+
+
+[root@helper01 redhat]# oc logs cloud-credential-operator-5df5dd656c-vq8n4
+time="2020-09-01T13:25:41Z" level=debug msg="syncing cluster operator status" controller=credreq_status
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-image-registry error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-image-registry-openstack error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-machine-api-openstack error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-machine-api-vsphere error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-machine-api-aws error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-image-registry-gcs error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-ingress-gcp error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-network error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=cloud-credential-operator-iam-ro error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-ingress error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-image-registry-azure error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-machine-api-gcp error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-machine-api-ovirt error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-machine-api-azure error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=warning msg="ignoring for status condition because could not decode provider spec" controller=credreq_status credentialsRequest=openshift-ingress-azure error="unsupported platorm type: None"
+time="2020-09-01T13:25:41Z" level=debug msg="0 cred requests" controller=credreq_status
+time="2020-09-01T13:25:41Z" level=debug msg="set ClusterOperator condition" controller=credreq_status message="No credentials requests reporting errors." reason=NoCredentialsFailing status=False type=Degraded
+time="2020-09-01T13:25:41Z" level=debug msg="set ClusterOperator condition" controller=credreq_status message="0 of 0 credentials requests provisioned and reconciled." reason=ReconcilingComplete status=False type=Progressing
+time="2020-09-01T13:25:41Z" level=debug msg="set ClusterOperator condition" controller=credreq_status message= reason= status=True type=Available
+time="2020-09-01T13:25:41Z" level=debug msg="set ClusterOperator condition" controller=credreq_status message= reason= status=True type=Upgradeable
+time="2020-09-01T13:25:41Z" level=debug msg="cluster operator status updated" controller=credreq_status
+time="2020-09-01T13:26:39Z" level=info msg="calculating metrics for all CredentialsRequests" controller=metrics
+time="2020-09-01T13:26:39Z" level=info msg="reconcile complete" controller=metrics elapsed=3.680421ms
+I0901 13:27:20.860826       1 leaderelection.go:288] failed to renew lease openshift-cloud-credential-operator/cloud-credential-operator-leader: failed to tryAcquireOrRenew context deadline exceeded
+time="2020-09-01T13:27:20Z" level=fatal msg="unable to run the manager" error="leader election lost"
