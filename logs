@@ -1,0 +1,12 @@
+[root@helper01 ~]# oc logs -f csi-snapshot-controller-5fcd8f5b68-jxmlf
+I0901 13:19:18.527566       1 main.go:66] Version: v4.5.0-202008100413.p0-0-gb298df5-dirty
+I0901 13:19:18.532504       1 main.go:93] Start NewCSISnapshotController with kubeconfig [] resyncPeriod [1m0s]
+I0901 13:19:18.533673       1 leaderelection.go:242] attempting to acquire leader lease  openshift-cluster-storage-operator/snapshot-controller-leader...
+I0901 13:19:18.577278       1 leaderelection.go:252] successfully acquired lease openshift-cluster-storage-operator/snapshot-controller-leader
+I0901 13:19:18.577404       1 leader_election.go:165] became leader, starting
+I0901 13:19:18.577740       1 snapshot_controller_base.go:143] Starting snapshot controller
+E0901 13:19:37.642112       1 leaderelection.go:331] error retrieving resource lock openshift-cluster-storage-operator/snapshot-controller-leader: etcdserver: leader changed
+
+
+
+
