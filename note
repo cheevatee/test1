@@ -146,3 +146,121 @@ openshift-monitoring       thanos-querier         thanos-querier-openshift-monit
 
 
 
+
+
+
+
+
+
+
+# cp -Rp /etc/named.conf /etc/named.conf.ori
+
+
+# vi /etc/named.conf
+
+
+#listen-on port 53 { 127.0.0.1; };
+#listen-on-v6 port 53 { ::1; };
+
+allow-query     { localhost; 192.168.4.0/24; };
+
+zone "cheeva.tech" IN {
+    type master;
+    file "cheeva.tech.db";
+    allow-update { none; };
+   allow-query { any; };
+};
+
+zone "5.168.192.in-addr.arpa" IN {
+     type master;
+     file "cheeva.tech.rev";
+     allow-update { none; };
+    allow-query { any; };
+};
+
+
+# vim /var/named/cheeva.tech.db
+
+$TTL 1W
+@       IN      SOA     ns1.cheeva.tech.        root (
+                        2019070700      ; serial
+                        3H              ; refresh (3 hours)
+                        30M             ; retry (30 minutes)
+                        2W              ; expiry (2 weeks)
+                        1W )            ; minimum (1 week)
+        IN      NS      ns1.cheeva.tech.
+        IN      MX 10   smtp.cheeva.tech.
+;
+;
+ns1     IN      A       192.168.5.30
+smtp    IN      A       192.168.5.30
+;
+helper01  IN      A       192.168.5.30
+;
+; The api points to the IP of your load balancer
+api.ocp4                IN      A       192.168.5.30
+api-int.ocp4            IN      A       192.168.5.30
+;
+; The wildcard also points to the load balancer
+*.apps.ocp4             IN      A       192.168.5.30
+;
+; Create entry for the bootstrap host
+bootstrap       IN      A       192.168.5.60
+;
+; Create entries for the master hosts
+master01                IN      A       192.168.5.61
+master02                IN      A       192.168.5.62
+master03                IN      A       192.168.5.63
+;
+; Create entries for the worker hosts
+worker01                IN      A       192.168.5.64
+worker02                IN      A       192.168.5.65
+;
+; The ETCd cluster lives on the masters...so point these to the IP of the masters
+etcd-0.ocp4     IN      A       192.168.5.61
+etcd-1.ocp4     IN      A       192.168.5.62
+etcd-2.ocp4     IN      A       192.168.5.63
+;
+; The SRV records are IMPORTANT....make sure you get these right...note the trailing dot at the end...
+_etcd-server-ssl._tcp.ocp4      IN      SRV     0 10 2380 etcd-0.ocp4.cheeva.tech.
+_etcd-server-ssl._tcp.ocp4      IN      SRV     0 10 2380 etcd-1.ocp4.cheeva.tech.
+_etcd-server-ssl._tcp.ocp4      IN      SRV     0 10 2380 etcd-2.ocp4.cheeva.tech.
+;
+;EOF
+
+
+
+
+
+# vim /var/named/cheeva.tech.rev
+
+$TTL 1W
+@       IN      SOA     ns1.cheeva.tech.        root (
+                        2019070700      ; serial
+                        3H              ; refresh (3 hours)
+                        30M             ; retry (30 minutes)
+                        2W              ; expiry (2 weeks)
+                        1W )            ; minimum (1 week)
+        IN      NS      ns1.cheeva.tech.
+;
+; syntax is "last octet" and the host must have fqdn with trailing dot
+61      IN      PTR     master01.cheeva.tech.
+62      IN      PTR     master02.cheeva.tech.
+63      IN      PTR     master03.cheeva.tech.
+;
+60      IN      PTR     bootstrap.cheeva.tech.
+;
+30      IN      PTR     api.ocp4.cheeva.tech.
+30      IN      PTR     api-int.ocp4.cheeva.tech.
+;
+64      IN      PTR     worker01.cheeva.tech.
+65      IN      PTR     worker02.cheeva.tech.
+;
+;EOF
+
+
+
+
+
+
+
