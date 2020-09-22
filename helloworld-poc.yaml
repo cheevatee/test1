@@ -1,0 +1,365 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "2"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"helloworld-poc","release":"stable"},"name":"helloworld-poc","namespace":"biznext-admin-dev"},"spec":{"replicas":9,"revisionHistoryLimit":0,"selector":{"matchLabels":{"app":"helloworld-poc","release":"stable"}},"template":{"metadata":{"labels":{"app":"helloworld-poc","release":"stable"}},"spec":{"containers":[{"env":[{"name":"spring_profiles_active","value":"dev"},{"name":"BUILD_NUMBER","value":"21"},{"name":"MICROSERVICE_NAME","value":"helloworld-poc"},{"name":"NAMESPACE_NAME","value":"biznext-admin-dev"},{"name":"LOG_ROOT_PATH","value":"/var/logs/microservice/"},{"name":"JAVA_TOOL_OPTIONS","value":"-Duser.timezone=\"Asia/Bangkok\""},{"name":"HOST_IP","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"status.hostIP"}}}],"image":"harborpoc.whitezone.ktb:8443/biznext-admin/helloworld-poc:0.0.1-SNAPSHOT","imagePullPolicy":"Always","livenessProbe":{"httpGet":{"path":"/actuator/info","port":8081},"initialDelaySeconds":60,"periodSeconds":30,"timeoutSeconds":10},"name":"helloworld-poc","ports":[{"containerPort":8080}],"readinessProbe":{"httpGet":{"path":"/actuator/health","port":8081},"initialDelaySeconds":60,"periodSeconds":20},"resources":{"limits":{"cpu":"1000m","ephemeral-storage":"5Gi","memory":"1Gi"},"requests":{"cpu":"100m","ephemeral-storage":"200Mi","memory":"128Mi"}},"volumeMounts":[{"mountPath":"/config","name":"application-config","readOnly":true},{"mountPath":"/logback","name":"logging-config","readOnly":true},{"mountPath":"/etc/localtime","name":"tz-config","readOnly":true},{"mountPath":"/usr/local/openjdk-11/lib/security/cacerts","name":"java-cacerts","readOnly":true,"subPath":"cacerts"}]}],"imagePullSecrets":[{"name":"harbor-library"}],"volumes":[{"name":"application-config","secret":{"items":[{"key":"helloworld-poc-dev.yaml","path":"application-dev.yaml"}],"secretName":"helloworld-poc-dev"}},{"configMap":{"items":[{"key":"logback-spring-dev.xml","path":"logback-spring.xml"}],"name":"logback-spring-dev"},"name":"logging-config"},{"hostPath":{"path":"/usr/share/zoneinfo/Asia/Bangkok"},"name":"tz-config"},{"name":"java-cacerts","secret":{"items":[{"key":"cacerts","path":"cacerts"}],"secretName":"java-ca-cert"}}]}}}}
+    creationTimestamp: "2020-09-21T10:07:43Z"
+    generation: 2
+    labels:
+      app: helloworld-poc
+      release: stable
+    managedFields:
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:labels:
+            .: {}
+            f:app: {}
+            f:release: {}
+        f:spec:
+          f:progressDeadlineSeconds: {}
+          f:replicas: {}
+          f:revisionHistoryLimit: {}
+          f:selector:
+            f:matchLabels:
+              .: {}
+              f:app: {}
+              f:release: {}
+          f:strategy:
+            f:rollingUpdate:
+              .: {}
+              f:maxSurge: {}
+              f:maxUnavailable: {}
+            f:type: {}
+          f:template:
+            f:metadata:
+              f:labels:
+                .: {}
+                f:app: {}
+                f:release: {}
+            f:spec:
+              f:containers:
+                k:{"name":"helloworld-poc"}:
+                  .: {}
+                  f:env:
+                    .: {}
+                    k:{"name":"BUILD_NUMBER"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"HOST_IP"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:fieldRef:
+                          .: {}
+                          f:apiVersion: {}
+                          f:fieldPath: {}
+                    k:{"name":"JAVA_TOOL_OPTIONS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"LOG_ROOT_PATH"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"MICROSERVICE_NAME"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"NAMESPACE_NAME"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"spring_profiles_active"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                  f:image: {}
+                  f:imagePullPolicy: {}
+                  f:livenessProbe:
+                    .: {}
+                    f:failureThreshold: {}
+                    f:httpGet:
+                      .: {}
+                      f:path: {}
+                      f:port: {}
+                      f:scheme: {}
+                    f:initialDelaySeconds: {}
+                    f:periodSeconds: {}
+                    f:successThreshold: {}
+                    f:timeoutSeconds: {}
+                  f:name: {}
+                  f:ports:
+                    .: {}
+                    k:{"containerPort":8080,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:protocol: {}
+                  f:readinessProbe:
+                    .: {}
+                    f:failureThreshold: {}
+                    f:httpGet:
+                      .: {}
+                      f:path: {}
+                      f:port: {}
+                      f:scheme: {}
+                    f:initialDelaySeconds: {}
+                    f:periodSeconds: {}
+                    f:successThreshold: {}
+                    f:timeoutSeconds: {}
+                  f:resources:
+                    .: {}
+                    f:limits:
+                      .: {}
+                      f:cpu: {}
+                      f:ephemeral-storage: {}
+                      f:memory: {}
+                    f:requests:
+                      .: {}
+                      f:cpu: {}
+                      f:ephemeral-storage: {}
+                      f:memory: {}
+                  f:terminationMessagePath: {}
+                  f:terminationMessagePolicy: {}
+                  f:volumeMounts:
+                    .: {}
+                    k:{"mountPath":"/config"}:
+                      .: {}
+                      f:mountPath: {}
+                      f:name: {}
+                      f:readOnly: {}
+                    k:{"mountPath":"/logback"}:
+                      .: {}
+                      f:mountPath: {}
+                      f:name: {}
+                      f:readOnly: {}
+                    k:{"mountPath":"/usr/local/openjdk-11/lib/security/cacerts"}:
+                      .: {}
+                      f:mountPath: {}
+                      f:name: {}
+                      f:readOnly: {}
+                      f:subPath: {}
+              f:dnsPolicy: {}
+              f:imagePullSecrets:
+                .: {}
+                k:{"name":"harbor-library"}:
+                  .: {}
+                  f:name: {}
+              f:restartPolicy: {}
+              f:schedulerName: {}
+              f:securityContext: {}
+              f:terminationGracePeriodSeconds: {}
+              f:volumes:
+                .: {}
+                k:{"name":"application-config"}:
+                  .: {}
+                  f:name: {}
+                  f:secret:
+                    .: {}
+                    f:defaultMode: {}
+                    f:items: {}
+                    f:secretName: {}
+                k:{"name":"java-cacerts"}:
+                  .: {}
+                  f:name: {}
+                  f:secret:
+                    .: {}
+                    f:defaultMode: {}
+                    f:items: {}
+                    f:secretName: {}
+                k:{"name":"logging-config"}:
+                  .: {}
+                  f:configMap:
+                    .: {}
+                    f:defaultMode: {}
+                    f:items: {}
+                    f:name: {}
+                  f:name: {}
+      manager: kubectl
+      operation: Update
+      time: "2020-09-21T10:07:43Z"
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            f:deployment.kubernetes.io/revision: {}
+        f:status:
+          f:conditions:
+            .: {}
+            k:{"type":"Available"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Progressing"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+          f:observedGeneration: {}
+          f:replicas: {}
+          f:unavailableReplicas: {}
+          f:updatedReplicas: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2020-09-22T03:20:24Z"
+    name: helloworld-poc
+    namespace: biznext-admin-dev
+    resourceVersion: "31107624"
+    selfLink: /apis/apps/v1/namespaces/biznext-admin-dev/deployments/helloworld-poc
+    uid: e10c6130-6ada-41f5-a447-c651d2ec6dfd
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 9
+    revisionHistoryLimit: 0
+    selector:
+      matchLabels:
+        app: helloworld-poc
+        release: stable
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: helloworld-poc
+          release: stable
+      spec:
+        containers:
+        - env:
+          - name: spring_profiles_active
+            value: dev
+          - name: BUILD_NUMBER
+            value: "21"
+          - name: MICROSERVICE_NAME
+            value: helloworld-poc
+          - name: NAMESPACE_NAME
+            value: biznext-admin-dev
+          - name: LOG_ROOT_PATH
+            value: /var/logs/microservice/
+          - name: JAVA_TOOL_OPTIONS
+            value: -Duser.timezone="Asia/Bangkok"
+          - name: HOST_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.hostIP
+          image: harborpoc.whitezone.ktb:8443/biznext-admin/helloworld-poc:0.0.1-SNAPSHOT
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /actuator/info
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: helloworld-poc
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /actuator/health
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              ephemeral-storage: 200Mi
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /config
+            name: application-config
+            readOnly: true
+          - mountPath: /logback
+            name: logging-config
+            readOnly: true
+          - mountPath: /usr/local/openjdk-11/lib/security/cacerts
+            name: java-cacerts
+            readOnly: true
+            subPath: cacerts
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: harbor-library
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: application-config
+          secret:
+            defaultMode: 420
+            items:
+            - key: helloworld-poc-dev.yaml
+              path: application-dev.yaml
+            secretName: helloworld-poc-dev
+        - configMap:
+            defaultMode: 420
+            items:
+            - key: logback-spring-dev.xml
+              path: logback-spring.xml
+            name: logback-spring-dev
+          name: logging-config
+        - name: java-cacerts
+          secret:
+            defaultMode: 420
+            items:
+            - key: cacerts
+              path: cacerts
+            secretName: java-ca-cert
+  status:
+    conditions:
+    - lastTransitionTime: "2020-09-21T10:07:43Z"
+      lastUpdateTime: "2020-09-21T10:07:43Z"
+      message: Deployment does not have minimum availability.
+      reason: MinimumReplicasUnavailable
+      status: "False"
+      type: Available
+    - lastTransitionTime: "2020-09-22T03:20:24Z"
+      lastUpdateTime: "2020-09-22T03:20:24Z"
+      message: ReplicaSet "helloworld-poc-6b7f7c5ccb" has timed out progressing.
+      reason: ProgressDeadlineExceeded
+      status: "False"
+      type: Progressing
+    observedGeneration: 2
+    replicas: 9
+    unavailableReplicas: 9
+    updatedReplicas: 9
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
