@@ -1,0 +1,54 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.istio.io/v1alpha3","kind":"VirtualService","metadata":{"annotations":{},"name":"biznext-admin-virtual-service","namespace":"biznext-admin-dev"},"spec":{"gateways":["default/dev-gateway"],"hosts":["ingress-biznext-admin.gtbdev-vayucloud.krungthai"],"http":[{"match":[{"headers":{"X-App-Version":{"prefix":"test"}},"uri":{"prefix":"/ktb/rest/poc/v1/hello-world"}}],"route":[{"destination":{"host":"helloworld-poc","port":{"number":8080},"subset":"candidate"}}]},{"match":[{"uri":{"prefix":"/ktb/rest/poc/v1/hello-world"}}],"route":[{"destination":{"host":"helloworld-poc","port":{"number":8080},"subset":"stable"}}]},{"match":[{"uri":{"prefix":"/ktb/rest/poc/hello-world/"}}],"rewrite":{"uri":"/ktb/rest/poc/"},"route":[{"destination":{"host":"helloworld-poc","port":{"number":8080}}}]}]}}
+  creationTimestamp: "2020-09-21T09:54:47Z"
+  generation: 5
+  managedFields:
+  - apiVersion: networking.istio.io/v1alpha3
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:kubectl.kubernetes.io/last-applied-configuration: {}
+      f:spec:
+        .: {}
+        f:gateways: {}
+        f:hosts: {}
+        f:http: {}
+    manager: kubectl
+    operation: Update
+    time: "2020-09-22T04:55:01Z"
+  name: biznext-admin-virtual-service
+  namespace: biznext-admin-dev
+  resourceVersion: "31225099"
+  selfLink: /apis/networking.istio.io/v1alpha3/namespaces/biznext-admin-dev/virtualservices/biznext-admin-virtual-service
+  uid: 3a2c9f97-67d2-4767-b5c6-3f71d0ae40f7
+spec:
+  gateways:
+  - default/dev-gateway
+  hosts:
+  - ingress-biznext-admin.apps.ocp4.vayu.local
+  http:
+  - match:
+    - uri:
+        prefix: /ktb/rest/poc/v1/hello-world
+    route:
+    - destination:
+        host: helloworld-poc
+        port:
+          number: 8080
+        subset: stable
+  - match:
+    - uri:
+        prefix: /ktb/rest/poc/hello-world/
+    rewrite:
+      uri: /ktb/rest/poc/
+    route:
+    - destination:
+        host: helloworld-poc
+        port:
+          number: 8080
