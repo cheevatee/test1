@@ -1,0 +1,78 @@
+# oc get smcp
+NAME            READY   STATUS             TEMPLATE   VERSION   AGE
+basic-install   9/9     UpdateSuccessful   default    v1.1      2d
+#
+# oc edit smcp basic-install
+
+spec:
+  istio:
+    gateways:
+      istio-egressgateway:
+        autoscaleEnabled: true
+        autoscaleMax: 10
+        autoscaleMin: 1
+      istio-ingressgateway:
+        autoscaleEnabled: true
+        autoscaleMax: 500
+        autoscaleMin: 1
+        ior_enabled: false
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+    global:
+      proxy:
+        resources:
+          limits:
+            cpu: 500m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+    grafana:
+      enabled: true
+    kiali:
+      enabled: true
+    mixer:
+      policy:
+        autoscaleEnabled: true
+        autoscaleMax: 10
+        autoscaleMin: 1
+      telemetry:
+        autoscaleEnabled: true
+        autoscaleMax: 9
+        autoscaleMin: 1
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 8G
+          requests:
+            cpu: 500m
+            memory: 4G
+    pilot:
+      autoscaleEnabled: true
+      autoscaleMax: 10
+      autoscaleMin: 1
+      traceSampling: 10
+    tracing:
+      enabled: true
+      jaeger:
+        template: all-in-one
+  template: default
+  version: v1.1
+  
+# oc get smmr
+NAME      READY   STATUS       AGE
+default   2/2     Configured   2d
+#
+
+
+# oc edit smmr default
+
+spec:
+  members:
+  - bookinfo
+  - biznext-admin-dev
