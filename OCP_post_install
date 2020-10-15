@@ -468,6 +468,13 @@ spec:
         storageClassName: "local-sc-elasticsearch" 
         size: 195G
       redundancyPolicy: "SingleRedundancy"
+      resources:
+        limits:
+          cpu: 3
+          memory: 8Gi
+        requests:
+          cpu: 3
+          memory: 8Gi  
       tolerations:
       - key: infra-monitoring
         value: reserved
