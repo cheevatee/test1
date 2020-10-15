@@ -32,7 +32,7 @@ kind: MachineConfig
 metadata:
   labels:
     machineconfiguration.openshift.io/role: worker
-  name: 50-master-chrony
+  name: 50-worker-chrony
 spec:
   config:
     ignition:
@@ -796,5 +796,29 @@ spec:
 
 oc get openshiftapiserver -o=jsonpath='{range .items[0].status.conditions[?(@.type=="Encrypted")]}{.reason}{"\n"}{.message}{"\n"}'
 oc get kubeapiserver -o=jsonpath='{range .items[0].status.conditions[?(@.type=="Encrypted")]}{.reason}{"\n"}{.message}{"\n"}'
+
+##################################################
+X. OpenShift Custom Console (Custom Link)
+##################################################
+
+oc get consolelink
+
+vi console-custom-link.yaml
+
+apiVersion: console.openshift.io/v1
+kind: ConsoleLink
+metadata:
+  name: vayu-console
+spec:
+  applicationMenu:
+    section: Test
+  href: https://<URL>/
+  location: ApplicationMenu
+  text: Example link
+  
+oc create -f console-custom-link.yaml
+
+
+
 
 
